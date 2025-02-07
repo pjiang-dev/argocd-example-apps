@@ -17,4 +17,10 @@ spec:
       - image: gcr.io/heptio-images/ks-guestbook-demo:0.1
         name: guestbook-ui
         ports:
-        - containerPort: 80
+          - containerPort: 9876
+            name: metrics
+          - containerPort: 3000
+            name: http
+        env:
+          - name: FOO
+            value: BAR
