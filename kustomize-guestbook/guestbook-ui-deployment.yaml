@@ -19,3 +19,6 @@ spec:
               name: metrics
             - containerPort: 3000
               name: http
+          env:
+            - name: FOO
+              value: BAR
