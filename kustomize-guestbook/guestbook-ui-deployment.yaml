@@ -1,20 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: guestbook-ui
+  name: test-server-side-diff
 spec:
-  replicas: 1
-  revisionHistoryLimit: 3
   selector:
     matchLabels:
-      app: guestbook-ui
+      app.kubernetes.io/name: test-server-side-diff
   template:
     metadata:
       labels:
-        app: guestbook-ui
+        app.kubernetes.io/name: test-server-side-diff
     spec:
       containers:
-      - image: gcr.io/heptio-images/ks-guestbook-demo:0.1
-        name: guestbook-ui
-        ports:
-        - containerPort: 80
+        - name: idle
+          image: spurin/idle:latest
+          ports:
+            - containerPort: 3000
+              name: http
