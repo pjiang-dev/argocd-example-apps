@@ -15,10 +15,5 @@ spec:
         - name: idle
           image: spurin/idle:latest
           ports:
-            - containerPort: 9876
-              name: metrics
             - containerPort: 3000
               name: http
-          env:
-            - name: FOO
-              value: BAR
