@@ -3,7 +3,6 @@ kind: Deployment
 metadata:
   name: test-server-side-diff
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app.kubernetes.io/name: test-server-side-diff
@@ -16,7 +15,10 @@ spec:
         - name: idle
           image: spurin/idle:latest
           ports:
-            - containerPort: 9878
+            - containerPort: 9876
               name: metrics
             - containerPort: 3000
               name: http
+          env:
+            - name: FOO
+              value: BAR
