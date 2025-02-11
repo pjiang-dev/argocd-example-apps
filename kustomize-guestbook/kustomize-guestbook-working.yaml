@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-server-side-diff-working
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: test-server-side-diff-working
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: test-server-side-diff-working
+    spec:
+      containers:
+        - name: idle
+          image: spurin/idle:latest
+          ports:
+            - containerPort: 9876
+              name: https
