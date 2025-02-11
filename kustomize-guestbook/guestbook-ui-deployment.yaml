@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: test-server-side-diff
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app.kubernetes.io/name: test-server-side-diff
