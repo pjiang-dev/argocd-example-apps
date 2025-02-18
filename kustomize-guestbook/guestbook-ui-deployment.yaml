@@ -16,7 +16,4 @@ spec:
           image: spurin/idle:latest
           ports:
             - containerPort: 9879
-              name: http
-            - containerPort: 9879
-              name: metrics
-              protocol: TCP
+              name: TCP
