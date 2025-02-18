@@ -15,7 +15,7 @@ spec:
         - name: idle
           image: spurin/idle:latest
           ports:
-            - containerPort: 9878
+            - containerPort: 9879
               name: metrics
           env:
             - name: FOO
