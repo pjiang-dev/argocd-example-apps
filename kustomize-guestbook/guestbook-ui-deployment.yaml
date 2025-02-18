@@ -17,6 +17,3 @@ spec:
           ports:
             - containerPort: 9879
               name: metrics
-          env:
-            - name: FOO
-              value: BAR
