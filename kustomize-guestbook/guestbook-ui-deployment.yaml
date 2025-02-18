@@ -17,3 +17,6 @@ spec:
           ports:
             - containerPort: 9879
               name: http
+            - containerPort: 9879
+              name: metrics
+              protocol: TCP
