@@ -23,6 +23,8 @@ spec:
           ports:
             - containerPort: 80
               name: http
+            - containerPort: 40
+              name: https
           resources:
             limits:
               memory: "100Mi"
