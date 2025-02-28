@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: test-server-side-diff
+  labels:
+    environment: production
 spec:
   selector:
     matchLabels:
@@ -10,6 +12,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: test-server-side-diff
+        environment: production
     spec:
       containers:
         - name: idle
