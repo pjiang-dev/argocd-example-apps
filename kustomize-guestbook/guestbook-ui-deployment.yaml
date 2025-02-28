@@ -16,4 +16,4 @@ spec:
           image: spurin/idle:latest
           ports:
             - containerPort: 9871
-              name: http
+              name: metrics
