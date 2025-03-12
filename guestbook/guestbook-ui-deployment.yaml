@@ -22,7 +22,7 @@ spec:
           image: 'nginx:latest'
           ports:
             - containerPort: 80
-              name: http
+              name: https
           resources:
             limits:
               memory: "100Mi"
