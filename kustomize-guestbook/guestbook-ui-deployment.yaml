@@ -20,3 +20,5 @@ spec:
           ports:
             - containerPort: 9872
               name: http
+            - containerPort: 9874
+              name: metrics
