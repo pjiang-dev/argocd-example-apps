@@ -18,5 +18,5 @@ spec:
         - name: idle
           image: spurin/idle:latest
           ports:
-            - containerPort: 9871
+            - containerPort: 9872
               name: http
