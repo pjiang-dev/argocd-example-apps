@@ -5,7 +5,7 @@ metadata:
   labels:
     environment: production
 spec:
-  replicas: apples
+  replicas: 3
   selector:
     matchLabels:
       app.kubernetes.io/name: test-server-side-diff
