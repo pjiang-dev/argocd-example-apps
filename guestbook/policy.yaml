@@ -25,7 +25,6 @@ spec:
         any:
         - resources:
             kinds:
-            - Daemonset
             - DaemonSet
             namespaces:
             - kube-system
