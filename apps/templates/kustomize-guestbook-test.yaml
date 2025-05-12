@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/tracking-id: appofapps:argoproj.io/Application:argocd/kustomize-guestbook
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  name: kustomize-guestbook-test
+  namespace: argocd
+spec:
+  destination:
+    namespace: kustomize-guestbook
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: kustomize-guestbook
+    repoURL: https://github.com/argoproj/argocd-example-apps
+    targetRevision: HEAD
