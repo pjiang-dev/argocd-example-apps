@@ -3,6 +3,7 @@ kind: Application
 metadata:
   annotations:
     argocd.argoproj.io/tracking-id: appofapps:argoproj.io/Application:argocd/ssd-test
+    argocd.argoproj.io/compare-options: ServerSideDiff=false
   name: ssd-test
   namespace: argocd
 spec:
