@@ -11,7 +11,6 @@ spec:
     namespace: kustomize-guestbook
     server: https://kubernetes.default.svc
   project: default
-  sourceHydrator:
     source:
       path: kustomize-guestbook
       repoURL: https://github.com/argoproj/argocd-example-apps
