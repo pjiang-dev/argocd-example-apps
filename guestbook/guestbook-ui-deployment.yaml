@@ -3,8 +3,6 @@ kind: Deployment
 metadata:
   name: manual-apply-test-deployment
   namespace: default
-  labels:
-    app: manual-apply-app
 spec:
   replicas: 1
   selector:
