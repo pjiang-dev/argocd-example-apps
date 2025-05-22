@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/tracking-id: app:argoproj.io/Application:argocd/ssd-test-client
+  name: ssd-test-client
+  namespace: argocd
+spec:
+  destination:
+    namespace: kustomize-guestbook
+    server: https://kubernetes.default.svc
+  project: default
+  sourceHydrator:
+    drySource:
+      path: apps
+      repoURL: https://github.com/pjiang-dev/argocd-example-apps
+      targetRevision: HEAD
+    syncSource:
+      path: apps
+      targetBranch: master
