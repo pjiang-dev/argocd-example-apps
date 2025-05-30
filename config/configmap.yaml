@@ -5,4 +5,4 @@ metadata:
 data:
   key1: value1
   key2: value2
-#  legacy_field: should_be_removed
+  legacy_field: should_be_removed
