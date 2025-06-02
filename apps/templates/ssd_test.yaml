@@ -10,11 +10,7 @@ spec:
     namespace: kustomize-guestbook
     server: https://kubernetes.default.svc
   project: default
-  sourceHydrator:
-    drySource:
-      path: apps
-      repoURL: https://github.com/pjiang-dev/argocd-example-apps
-      targetRevision: HEAD
-    syncSource:
-      path: apps
-      targetBranch: master
+  source:
+   path: apps
+   repoURL: https://github.com/pjiang-dev/argocd-example-apps
+   targetRevision: HEAD
