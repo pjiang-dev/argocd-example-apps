@@ -3,6 +3,7 @@ kind: Application
 metadata:
   annotations:
     argocd.argoproj.io/tracking-id: apps:argoproj.io/Application:argocd/ssd-test
+    argocd.argoproj.io/refreshtest": normal
   name: ssd-test
   namespace: argocd
 spec:
