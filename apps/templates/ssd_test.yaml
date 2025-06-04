@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   annotations:
-    argocd.argoproj.io/tracking-id: app:argoproj.io/Application:argocd/ssd-test
+    argocd.argoproj.io/tracking-id: apps:argoproj.io/Application:argocd/ssd-test
   name: ssd-test
   namespace: argocd
 spec:
@@ -12,9 +12,9 @@ spec:
   project: default
   sourceHydrator:
     drySource:
-      path: apps
+      path: guestbook
       repoURL: https://github.com/pjiang-dev/argocd-example-apps
       targetRevision: HEAD
     syncSource:
-      path: apps
+      path: guestbook
       targetBranch: master
