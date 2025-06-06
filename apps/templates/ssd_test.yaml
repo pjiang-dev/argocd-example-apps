@@ -3,8 +3,6 @@ kind: Application
 metadata:
   annotations:
     argocd.argoproj.io/tracking-id: apps:argoproj.io/Application:argocd/ssd-test
-    argocd.argoproj.io/refreshtest: normal
-    argocd.argoproj.io/skip-reconcile: "true"
   name: ssd-test
   namespace: argocd
 spec:
