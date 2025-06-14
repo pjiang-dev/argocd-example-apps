@@ -11,6 +11,6 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: apps
+    path: guestbook
     repoURL: https://github.com/pjiang-dev/argocd-example-apps
     targetRevision: HEAD
