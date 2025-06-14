@@ -7,7 +7,7 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    namespace: kustomize-guestbook
+    namespace: default
     server: https://kubernetes.default.svc
   project: default
   source:
