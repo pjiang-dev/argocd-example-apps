@@ -7,5 +7,6 @@ metadata:
     manual.test.com/annotation: "manual-value"
     argocd.argoproj.io/tracking-id: "test"
     example: "test"
+    example2: "test"
 data:
   test: "value"
