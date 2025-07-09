@@ -4,8 +4,7 @@ metadata:
   name: test-managed-fields
   namespace: default
   annotations:
-    argocd.argoproj.io/tracking-id: "test-app:ConfigMap:default/test-managed-fields"
-    argocd.argoproj.io/sync-wave: "-1"  # ← New annotation
-    test.example.com/new-annotation: "test-value"  # ← Another new one
+    manual.test.com/annotation: "manual-value"
+    argocd.argoproj.io/tracking-id: "test"
 data:
-  initial-key: "initial-value"
+  test: "value"
