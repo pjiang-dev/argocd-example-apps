@@ -1,9 +1,43 @@
-apiVersion: example.com/v1alpha1
-kind: CustomStatefulSet
+apiVersion: argoproj.io/v1alpha1
+kind: Application
 metadata:
-  name: test-app-1
-  namespace: default
+  name: test-server-side-diff
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/compare-options: ServerSideDiff=true
 spec:
-  application:
-    name: test-application
-    replicas: 3
+  project: default
+  source:
+    repoURL: https://github.com/your-org/your-repo.git
+    targetRevision: HEAD
+    path: manifests
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: test-namespace
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      name: foo
+      jqPathExpressions:
+        - '.spec.template.spec.containers[] | select(.name == "foo").image'
+    - group: apps
+      kind: Deployment
+      name: foo
+      jsonPointers:
+        - /spec/replicas
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+      - RespectIgnoreDifferences=true
+      - ServerSideApply=true
+      - Validate=false
+    retry:
+      limit: 3
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m 
