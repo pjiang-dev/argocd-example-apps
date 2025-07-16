@@ -1,43 +1,119 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: test-server-side-diff
+  name: aws-load-balancer-controller
   namespace: argocd
   annotations:
     argocd.argoproj.io/compare-options: ServerSideDiff=true
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
-    repoURL: https://github.com/your-org/your-repo.git
-    targetRevision: HEAD
-    path: manifests
+    repoURL: https://aws.github.io/eks-charts
+    chart: aws-load-balancer-controller
+    targetRevision: 1.6.2
+    helm:
+      releaseName: aws-load-balancer-controller
+      values: |
+        clusterName: your-cluster-name
+        serviceAccount:
+          create: true
+          name: aws-load-balancer-controller
+          annotations:
+            eks.amazonaws.com/role-arn: arn:aws:iam::123456789012:role/AWSLoadBalancerControllerIAMRole
+        region: us-west-2
+        vpcId: vpc-12345678
+        image:
+          repository: 602401143452.dkr.ecr.us-west-2.amazonaws.com/amazon/aws-load-balancer-controller
+          tag: v2.6.2
+        replicaCount: 2
+        enableShield: false
+        enableWaf: false
+        enableWafv2: false
+        ingressClass: alb
+        ingressClassParams:
+          create: true
+          name: alb
+          spec:
+            scheme: internet-facing
+            ipAddressType: ipv4
+        defaultTags:
+          Environment: production
+          ManagedBy: argocd
+        nodeSelector:
+          kubernetes.io/os: linux
+        tolerations:
+          - key: CriticalAddonsOnly
+            operator: Exists
+        affinity:
+          podAntiAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+              - weight: 100
+                podAffinityTerm:
+                  labelSelector:
+                    matchExpressions:
+                      - key: app.kubernetes.io/name
+                        operator: In
+                        values:
+                          - aws-load-balancer-controller
+                  topologyKey: kubernetes.io/hostname
+        resources:
+          limits:
+            cpu: 200m
+            memory: 500Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        podDisruptionBudget:
+          maxUnavailable: 1
+        enableCertManager: true
+        webhook:
+          certManager:
+            enabled: true
+            issuerRef:
+              name: selfsigned-issuer
+              kind: ClusterIssuer
   destination:
     server: https://kubernetes.default.svc
-    namespace: test-namespace
-  ignoreDifferences:
-    - group: apps
-      kind: Deployment
-      name: foo
-      jqPathExpressions:
-        - '.spec.template.spec.containers[] | select(.name == "foo").image'
-    - group: apps
-      kind: Deployment
-      name: foo
-      jsonPointers:
-        - /spec/replicas
+    namespace: kube-system
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+      allowEmpty: true
     syncOptions:
+      - Validate=true
       - CreateNamespace=true
-      - ApplyOutOfSyncOnly=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=false
+      - FailOnSharedResource=true
       - RespectIgnoreDifferences=true
       - ServerSideApply=true
-      - Validate=false
     retry:
-      limit: 3
+      limit: 5
       backoff:
         duration: 5s
         factor: 2
-        maxDuration: 3m 
+        maxDuration: 3m
+  ignoreDifferences:
+    - kind: Secret
+      name: aws-load-balancer-tls
+      jsonPointers:
+        - /data/ca.crt
+        - /data/tls.crt
+        - /data/tls.key
+    - group: admissionregistration.k8s.io
+      kind: MutatingWebhookConfiguration
+      name: aws-load-balancer-webhook
+      jsonPointers:
+        - /webhooks/0/clientConfig/caBundle
+        - /webhooks/1/clientConfig/caBundle
+        - /webhooks/2/clientConfig/caBundle
+    - group: admissionregistration.k8s.io
+      kind: ValidatingWebhookConfiguration
+      name: aws-load-balancer-webhook
+      jsonPointers:
+        - /webhooks/0/clientConfig/caBundle
+        - /webhooks/1/clientConfig/caBundle
+        - /webhooks/2/clientConfig/caBundle
