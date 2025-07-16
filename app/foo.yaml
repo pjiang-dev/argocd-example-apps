@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: foo
+  namespace: test-namespace
+  labels:
+    app: foo
+    test-case: ignore-diff-server-side-diff
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: foo
+  template:
+    metadata:
+      labels:
+        app: foo
+    spec:
+      containers:
+      - name: foo
+        image: nginx:1.20.0  # This image field should be ignored by ignoreDifferences
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 200m
+            memory: 256Mi
+        env:
+        - name: ENVIRONMENT
+          value: "test"
+      - name: sidecar
+        image: busybox:1.35
+        command: ["sleep", "3600"]
+        resources:
+          requests:
+            cpu: 50m
+            memory: 64Mi 
