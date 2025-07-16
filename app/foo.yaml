@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: foo
-        image: nginx:1.20.0  # This image field should be ignored by ignoreDifferences
+        image: nginx:1.20.1  # This image field should be ignored by ignoreDifferences
         ports:
         - containerPort: 80
         resources:
