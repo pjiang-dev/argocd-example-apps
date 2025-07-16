@@ -97,12 +97,6 @@ spec:
         factor: 2
         maxDuration: 3m
   ignoreDifferences:
-    - kind: Secret
-      name: aws-load-balancer-tls
-      jsonPointers:
-        - /data/ca.crt
-        - /data/tls.crt
-        - /data/tls.key
     - group: admissionregistration.k8s.io
       kind: MutatingWebhookConfiguration
       name: aws-load-balancer-webhook
