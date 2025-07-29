@@ -11,7 +11,7 @@ spec:
   template:
     metadata:
       labels:
-        app: manual-apply-test
+        app: manual-apply-tests
     spec:
       automountServiceAccountToken: false
       containers:
