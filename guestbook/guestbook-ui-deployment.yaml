@@ -4,14 +4,14 @@ metadata:
   name: manual-apply-test-deployment
   namespace: default
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: manual-apply-test
   template:
     metadata:
       labels:
-        app: manual-apply-tests
+        app: manual-apply-test
     spec:
       automountServiceAccountToken: false
       containers:
