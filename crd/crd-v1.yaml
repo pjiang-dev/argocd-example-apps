@@ -33,9 +33,9 @@ spec:
                   #     memory:
                   #       type: string
                   #       default: "128Mi"
-                    default:
-                      cpu: "100m"
-                    memory: "128Mi"
+                    # default:
+                    #   cpu: "100m"
+                    # memory: "128Mi"
                 required:
                 - name
             required:
