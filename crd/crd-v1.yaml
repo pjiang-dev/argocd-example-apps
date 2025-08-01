@@ -23,18 +23,18 @@ spec:
                   replicas:
                     type: integer
                     default: 1
-                  # resourceRequirements:
-                  #   type: object
-                  #   properties:
-                  #     cpu:
-                  #       type: string
-                  #       default: "100m"
-                  #     memory:
-                  #       type: string
-                  #       default: "128Mi"
-                  #   default:
-                  #     cpu: "100m"
-                  #     memory: "128Mi"
+                  resourceRequirements:
+                    type: object
+                    properties:
+                      cpu:
+                        type: string
+                        default: "100m"
+                      memory:
+                        type: string
+                        default: "128Mi"
+                    default:
+                      cpu: "100m"
+                      memory: "128Mi"
                 required:
                 - name
             required:
