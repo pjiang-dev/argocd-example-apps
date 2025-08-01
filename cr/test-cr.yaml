@@ -7,4 +7,6 @@ spec:
   application:
     name: test-app
     replicas: 2
-    # Initially don't include resourceRequirements
+    resourceRequirements:
+      cpu: "200m"
+      memory: "256Mi"
