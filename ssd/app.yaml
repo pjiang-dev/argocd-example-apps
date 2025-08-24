@@ -8,6 +8,9 @@ spec:
     namespace: default
     server: https://kubernetes.default.svc
   project: default
+  syncPolicy:
+    syncOptions:
+    - SkipDryRunOnMissingResource=true
   source:
     path: guestbook
     repoURL: https://github.com/pjiang-dev/argocd-example-apps
