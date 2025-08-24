@@ -12,3 +12,13 @@ spec:
     path: guestbook
     repoURL: https://github.com/pjiang-dev/argocd-example-apps
     targetRevision: HEAD
+  ignoreDifferences:
+    - group: ""
+      kind: ConfigMap
+      jsonPointers:
+        - /data/IGNORED_FIELD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+~                   
