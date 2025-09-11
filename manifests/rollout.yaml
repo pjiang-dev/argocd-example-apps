@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: repro
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: repro
+  template:
+    metadata:
+      labels:
+        app: repro
+    spec:
+      containers:
+      - name: app
+        image: nginx:1.25
+  strategy:
+    canary:
+      # Background analysis (no analysisRunMetadata set)
+      analysis:
+        startingStep: 1
+        templates:
+        - templateName: dummy-analysis
+      steps:
+      - setWeight: 10
+      - pause: { duration: 5s }
+      - analysis:
+          # Step analysis (no analysisRunMetadata set)
+          templates:
+          - templateName: dummy-analysis
