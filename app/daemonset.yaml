@@ -11,7 +11,7 @@ spec:
   template:
     metadata:
       labels:
-      app: test
+        app: test
     spec:
       containers:
       - name: nginx
