@@ -17,4 +17,4 @@ spec:
         image: nginx
         resources:
           requests:
-            cpu: "5"  # This should be rejected!
+            cpu: "2"  # This should be rejected!
