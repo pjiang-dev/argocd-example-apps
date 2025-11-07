@@ -1,21 +1,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: test-app-config
+  name: postgres-app-name-56442febe66700c603f02402e5d5ce63
   namespace: default
 data:
-  nginx.conf: |
-    user nginx;
-    worker_processes 1;
-    events {
-      worker_connections 1024;
-    }
-    http {
-      server {
-        listen 80;
-        location / {
-          return 200 "Hello from test-app\n";
-        }
-      }
-    }
-
+  postgres.conf: |
+    # PostgreSQL configuration
+    max_connections = 100
+    shared_buffers = 128MB
