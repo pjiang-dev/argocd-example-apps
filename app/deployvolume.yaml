@@ -1,41 +1,67 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: test-app
+  name: app-name
   namespace: default
   labels:
-    app: test-app
+    app: app-name
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: test-app
+      app: app-name
   template:
     metadata:
       labels:
-        app: test-app
+        app: app-name
       annotations:
-        test: "annotation"
+        instrumentation.opentelemetry.io/inject-java: 'true'
     spec:
+      serviceAccountName: app-name
       containers:
-      - name: test-app
+      - name: app-name
         image: nginx:latest
         ports:
-        - name: http
-          containerPort: 80
+        - name: grpc
+          containerPort: 6565
+        - name: metrics
+          containerPort: 9113
         resources:
           limits:
-            cpu: 100m
-            memory: 128Mi
+            cpu: '1'
+            memory: '4Gi'
           requests:
-            cpu: 50m
-            memory: 64Mi
+            cpu: '1'
+            memory: '4Gi'
         volumeMounts:
-        - name: config
-          mountPath: /etc/nginx/nginx.conf
-          subPath: nginx.conf
+        - name: postgres
+          mountPath: /app/conf/postgres.conf
+          subPath: postgres.conf
+        livenessProbe:
+          initialDelaySeconds: 10
+          periodSeconds: 15
+          failureThreshold: 5
+          successThreshold: 1
+          timeoutSeconds: 5
+          httpGet:
+            port: 9113
+            path: /health/liveness
+        readinessProbe:
+          initialDelaySeconds: 10
+          periodSeconds: 15
+          failureThreshold: 5
+          successThreshold: 1
+          timeoutSeconds: 5
+          httpGet:
+            port: 9113
+            path: /health/readiness
       volumes:
-      - name: config
+      - name: postgres
         configMap:
-          name: test-app-config
+          name: postgres-app-name-56442febe66700c603f02402e5d5ce63
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: '25%'
+      maxUnavailable: '25%'
 
