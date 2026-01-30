@@ -38,4 +38,4 @@ spec:
   selector:
     app: {{ template "helm-guestbook.name" . }}
     release: {{ .Release.Name }}
-    environment: production
+    environment: production-test
